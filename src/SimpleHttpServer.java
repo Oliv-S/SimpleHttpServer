@@ -10,13 +10,23 @@ import java.net.InetSocketAddress;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class SimpleHttpServer {
+public class SimpleHttpServer extends Observable{
 
     private static volatile SimpleHttpServer instance;
 
     private HttpServer server;
     private boolean started=false;
-    private String body;
+    private String request;
+
+    public String getRequest() {
+        return this.request;
+    }
+
+    private void setRequest(String request) {
+        this.request = request;
+        setChanged();
+        notifyObservers();
+    }
 
     private SimpleHttpServer() {
 
@@ -76,6 +86,7 @@ public class SimpleHttpServer {
         server.stop(0);
         server=null;
         started = false;
+        request=null;
     }
 
     static class MyHandler implements HttpHandler {
@@ -100,11 +111,17 @@ public class SimpleHttpServer {
             String requestBody = new BufferedReader(new InputStreamReader(t.getRequestBody()))
                     .lines().collect(Collectors.joining("\n")).trim();
 
-            System.out.println(requestParameters);
-            System.out.println("**********************************\r\n");
-            String response = requestParameters.toString()+
-                    "\r\n**********************************\r\n"+
-                    requestBody;
+            StringBuilder sb = new StringBuilder();
+            requestParameters.forEach((k,v)-> sb.append(k).append((v.size()>1)?v.toString():v.get(0)).append("\n"));
+            sb.append("**********************************\n");
+            sb.append(requestBody);
+
+
+            String response = sb.toString();
+            //System.out.println(response);
+            SimpleHttpServer.getInstance().setRequest(response);
+
+
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
