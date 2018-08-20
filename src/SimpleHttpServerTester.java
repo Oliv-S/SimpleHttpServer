@@ -5,9 +5,12 @@ public class SimpleHttpServerTester implements Observer {
 
 
     public static void main(String[] args) {
+        int port =8080;
+        if (args.length>0)
+            port = Integer.parseInt(args[0]);
         SimpleHttpServerTester tester =new SimpleHttpServerTester();
         SimpleHttpServer server = SimpleHttpServer.getInstance();
-        if (server.start(8080)){
+        if (server.start(port)){
             System.out.println("Started");
             server.addObserver(tester);
         }

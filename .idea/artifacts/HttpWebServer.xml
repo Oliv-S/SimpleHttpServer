@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact name="HttpWebServer">
+    <output-path>$PROJECT_DIR$/out/artifacts/HttpWebServer</output-path>
+    <root id="root">
+      <element id="archive" name="SimpleHttpServer.jar">
+        <element id="module-output" name="SimpleHttpServer" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/out/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
