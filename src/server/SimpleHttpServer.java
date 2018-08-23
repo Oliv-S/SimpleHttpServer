@@ -1,7 +1,10 @@
+package server;
+
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import gui.Record;
 
 import java.io.*;
 import java.net.BindException;
@@ -16,14 +19,21 @@ public class SimpleHttpServer extends Observable{
 
     private HttpServer server;
     private boolean started=false;
-    private String request;
+    private List<Record> requestHeaders;
 
-    public String getRequest() {
-        return this.request;
+    public String getBody() {
+        return body;
     }
 
-    private void setRequest(String request) {
-        this.request = request;
+    private String body;
+
+    public List<Record> getRequestHeaders() {
+        return Collections.unmodifiableList(requestHeaders);
+    }
+
+    private void setRequestHeadersAndBody(List<Record> requestHeaders, String body) {
+        this.requestHeaders = requestHeaders;
+        this.body = body;
         setChanged();
         notifyObservers();
     }
@@ -86,19 +96,22 @@ public class SimpleHttpServer extends Observable{
         server.stop(0);
         server=null;
         started = false;
-        request=null;
+        requestHeaders=null;
     }
 
     static class MyHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange t) throws IOException {
+            if (t.getRequestURI().toString().trim().equals("/favicon.ico")) return;
             LinkedHashMap<String,List<String>> requestParameters = new LinkedHashMap<>();
 
             //Save request & connection parameters
-            requestParameters.put("Remote IP", Collections.singletonList(t.getRemoteAddress().toString()));
+            requestParameters.put("Remote Address", Collections.singletonList(t.getRemoteAddress().toString()));
+            requestParameters.put("Local Address", Collections.singletonList(t.getLocalAddress().toString()));
             requestParameters.put("URL: " , Collections.singletonList( t.getRequestURI().toString()));
             requestParameters.put("Protocol: " , Collections.singletonList( t.getProtocol()));
             requestParameters.put("Method: " , Collections.singletonList( t.getRequestMethod()));
+
 
             Headers headers = t.getRequestHeaders();
             //Save request headers
@@ -111,6 +124,9 @@ public class SimpleHttpServer extends Observable{
             String requestBody = new BufferedReader(new InputStreamReader(t.getRequestBody()))
                     .lines().collect(Collectors.joining("\n")).trim();
 
+            List<Record> headersList = new ArrayList<>();
+            requestParameters.forEach((k,v)-> headersList.add(new Record(k,(v.size()>1)?v.toString():v.get(0))));
+
             StringBuilder sb = new StringBuilder();
             requestParameters.forEach((k,v)-> sb.append(k).append((v.size()>1)?v.toString():v.get(0)).append("\n"));
             sb.append("**********************************\n");
@@ -118,14 +134,13 @@ public class SimpleHttpServer extends Observable{
 
 
             String response = sb.toString();
-            //System.out.println(response);
-            SimpleHttpServer.getInstance().setRequest(response);
-
 
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
             os.close();
+
+            SimpleHttpServer.getInstance().setRequestHeadersAndBody(headersList,requestBody);
         }
     }
 }

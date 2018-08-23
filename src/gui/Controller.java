@@ -1,8 +1,13 @@
-package fx;
+package gui;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
-        import java.util.ResourceBundle;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -11,8 +16,29 @@ import javafx.scene.control.Button;
         import javafx.scene.control.TableView;
         import javafx.scene.control.TextArea;
         import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import server.SimpleHttpServer;
 
-public class Controller {
+public class Controller implements Observer {
+    private static ObservableList<Record> tableValues;
+
+    public Controller() {
+        super();
+    }
+
+
+
+    @Override
+    public void update(Observable observable, Object o) {
+        tableValues.clear();
+        SimpleHttpServer.getInstance().getRequestHeaders().stream().forEach((p)-> this.tableValues.add(new Record(p.getParameter(), p.getValue())));
+        textAreaBody.clear();
+        try {
+            textAreaBody.setText(java.net.URLDecoder.decode(SimpleHttpServer.getInstance().getBody(), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -43,15 +69,26 @@ public class Controller {
 
     @FXML
     void onButtonStartClick(ActionEvent event) {
-        Button buttonStart = (Button) event.getSource();
-        Scene scene = buttonStart.getScene();
-        //TableColumn tableColumn = (TableColumn)scene.lookup("#tableColumnParameter");
+        //tableValues.add(new Record("A","b"));
+        if (!SimpleHttpServer.getInstance().isStarted()){
+            SimpleHttpServer server = SimpleHttpServer.getInstance();
+            int portNumber = 8080;
+            try {
+                portNumber = Integer.parseInt(fieldPortNumber.getText());
+            }catch (NumberFormatException e){
+            }
+            server.start(portNumber);
+            server.addObserver(this);
+        }
 
     }
 
     @FXML
     void onButtonStopClick(ActionEvent event) {
-
+        if (SimpleHttpServer.getInstance().isStarted()) {
+            SimpleHttpServer.getInstance().stop();
+            SimpleHttpServer.getInstance().deleteObservers();
+        }
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -64,5 +101,12 @@ public class Controller {
         assert tableColumnValue != null : "fx:id=\"tableColumnValue\" was not injected: check your FXML file 'sample.fxml'.";
         assert table != null : "fx:id=\"table\" was not injected: check your FXML file 'sample.fxml'.";
 
+
+        this.tableValues = FXCollections.observableArrayList();
+
+        ((TableColumn)this.tableColumnParameter).setCellValueFactory(new PropertyValueFactory<Record,String>("parameter"));
+        ((TableColumn) this.tableColumnValue).setCellValueFactory(new PropertyValueFactory<Record,String>("value"));
+        ((TableView)this.table).setItems(tableValues);
     }
+
 }

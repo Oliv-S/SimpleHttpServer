@@ -1,3 +1,7 @@
+package test;
+
+import server.SimpleHttpServer;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -24,6 +28,8 @@ public class SimpleHttpServerTester implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        System.out.println(SimpleHttpServer.getInstance().getRequest());
+        SimpleHttpServer.getInstance().getRequestHeaders().stream().forEach((p)-> System.out.println(p.getParameter() + " = " + p.getValue()));
+        System.out.println("********************************");
+        System.out.println(SimpleHttpServer.getInstance().getBody());
     }
 }
