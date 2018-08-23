@@ -6,23 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f4631a6-3946-4f4e-a1eb-fc42f64ef40a" name="Default Changelist" comment="extends Observable">
-      <change afterPath="$PROJECT_DIR$/src/form/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/form/view.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/Record.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SimpleHttpServer/SimpleHttpServer$MyHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SimpleHttpServer/SimpleHttpServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SimpleHttpServer/SimpleHttpServerTester.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SimpleHttpServer/fx/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SimpleHttpServer/fx/SimpleHttpServerGui.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SimpleHttpServer/fx/sample.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimpleHttpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/SimpleHttpServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SimpleHttpServerTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/SimpleHttpServerTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fx/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fx/SimpleHttpServerGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/SimpleHttpServerGui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fx/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/sample.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="6f4631a6-3946-4f4e-a1eb-fc42f64ef40a" name="Default Changelist" comment="extends Observable" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,7 +18,7 @@
     <session id="503234311">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.34" value="1" />
@@ -122,7 +106,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="163">
@@ -136,10 +120,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/form/form.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
+            <state relative-caret-position="143">
               <caret line="13" column="118" selection-start-line="13" selection-start-column="118" selection-end-line="13" selection-end-column="118" />
             </state>
           </provider>
@@ -274,7 +258,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535061690848" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535061692507" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/out" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
@@ -381,7 +365,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2635575" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2635575" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -522,13 +506,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/form/form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="13" column="118" selection-start-line="13" selection-start-column="118" selection-end-line="13" selection-end-column="118" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/SimpleHttpServerGui.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="548">
@@ -548,6 +525,13 @@
             <element signature="e#732#733#0" expanded="true" />
             <element signature="e#755#756#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/form/form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="13" column="118" selection-start-line="13" selection-start-column="118" selection-end-line="13" selection-end-column="118" />
         </state>
       </provider>
     </entry>
