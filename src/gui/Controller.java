@@ -79,7 +79,12 @@ public class Controller implements Observer {
             }
             server.start(portNumber);
             server.addObserver(this);
+            if (server.isStarted()){
+                buttonStart.setDisable(true);
+                buttonStop.setDisable(false);
+            }
         }
+
 
     }
 
@@ -88,6 +93,8 @@ public class Controller implements Observer {
         if (SimpleHttpServer.getInstance().isStarted()) {
             SimpleHttpServer.getInstance().stop();
             SimpleHttpServer.getInstance().deleteObservers();
+                buttonStart.setDisable(false);
+                buttonStop.setDisable(true);
         }
     }
 
@@ -107,6 +114,9 @@ public class Controller implements Observer {
         ((TableColumn)this.tableColumnParameter).setCellValueFactory(new PropertyValueFactory<Record,String>("parameter"));
         ((TableColumn) this.tableColumnValue).setCellValueFactory(new PropertyValueFactory<Record,String>("value"));
         ((TableView)this.table).setItems(tableValues);
+
+        buttonStop.setDisable(true);
+        fieldPortNumber.setText("8080");
     }
 
 }
