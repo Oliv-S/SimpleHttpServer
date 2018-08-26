@@ -20,6 +20,7 @@ public class SimpleHttpServerGui extends Application  {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+
         //Controller controller = loader.getController();
         //SimpleHttpServer server = SimpleHttpServer.getInstance();
         //server.addObserver(controller);

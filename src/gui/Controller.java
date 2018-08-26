@@ -11,11 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-        import javafx.scene.control.TableColumn;
-        import javafx.scene.control.TableView;
-        import javafx.scene.control.TextArea;
-        import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import server.SimpleHttpServer;
 
@@ -111,12 +107,26 @@ public class Controller implements Observer {
 
         this.tableValues = FXCollections.observableArrayList();
 
+        this.tableValues.add(new Record("",""));
+
         ((TableColumn)this.tableColumnParameter).setCellValueFactory(new PropertyValueFactory<Record,String>("parameter"));
         ((TableColumn) this.tableColumnValue).setCellValueFactory(new PropertyValueFactory<Record,String>("value"));
         ((TableView)this.table).setItems(tableValues);
 
         buttonStop.setDisable(true);
         fieldPortNumber.setText("8080");
+
+        // Create MenuBar
+
+        MenuBar menuBar = new MenuBar();
+
+        // Create menus
+        Menu fileMenu = new Menu("File");
+        Menu editMenu = new Menu("Edit");
+        // Add Menus to the MenuBar
+        menuBar.getMenus().addAll(fileMenu, editMenu);
+
+
     }
 
 }
